@@ -1,466 +1,223 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РП ПОРТАЛ НПУ</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>Львів RP Portal</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a1f3f 0%, #1a4d7a 50%, #0d2d52 100%);
-            background-attachment: fixed;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: url("https://images.unsplash.com/photo-1604079628040-94301bb21b91") no-repeat center/cover;
+    color: white;
+}
 
-        /* Розмитий синій фон ефект */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 70%);
-            animation: glow 8s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
+.blur {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(15px);
+    background: rgba(0,255,120,0.12);
+}
 
-        @keyframes glow {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(20px, 20px);
-            }
-        }
+.card {
+    position: relative;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 15px;
+}
 
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 500px;
-        }
+input, textarea, select {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+}
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    background: #00ff88;
+    cursor: pointer;
+}
 
-        .header h1 {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-shadow: 0 0 20px rgba(100, 200, 255, 0.8);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
+button:hover {
+    background: #00cc66;
+}
 
-        .header p {
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .card {
-            background: rgba(15, 35, 65, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(100, 200, 255, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .auth-section h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            color: #64c8ff;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid rgba(100, 200, 255, 0.4);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #64c8ff;
-            background: rgba(100, 200, 255, 0.15);
-            box-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        button {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #1a7fbf 0%, #0d5a8f 100%);
-            color: #fff;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(26, 127, 191, 0.4);
-        }
-
-        button:hover {
-            background: linear-gradient(135deg, #2a9fcf 0%, #1d7aaf 100%);
-            box-shadow: 0 6px 20px rgba(100, 200, 255, 0.6);
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .panel-section {
-            margin-bottom: 30px;
-        }
-
-        .panel-section h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.6em;
-            color: #64c8ff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .user-info {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(100, 200, 255, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid #64c8ff;
-        }
-
-        .user-info p {
-            font-size: 1.1em;
-            margin: 5px 0;
-        }
-
-        .tabs-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-button {
-            padding: 12px 15px;
-            background: linear-gradient(135deg, #1a7fbf 0%, #0d5a8f 100%);
-            border: 1px solid rgba(100, 200, 255, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .tab-button:hover {
-            background: linear-gradient(135deg, #2a9fcf 0%, #1d7aaf 100%);
-            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #64c8ff 0%, #3a9fbf 100%);
-            box-shadow: 0 0 20px rgba(100, 200, 255, 0.8);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .tab-content {
-            background: rgba(100, 200, 255, 0.1);
-            border: 1px solid rgba(100, 200, 255, 0.3);
-            border-radius: 8px;
-            padding: 20px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
-            min-height: 200px;
-        }
-
-        .logout-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #8f1a1a 0%, #5f0d0d 100%);
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .logout-btn:hover {
-            background: linear-gradient(135deg, #af2a2a 0%, #7f1d1d 100%);
-            box-shadow: 0 4px 15px rgba(200, 50, 50, 0.4);
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid rgba(100, 200, 255, 0.2);
-            margin: 20px 0;
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .tabs-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-        }
-    </style>
+hr { opacity: 0.3; }
+</style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- РЕЄСТРАЦІЯ / ВХІД -->
-        <div id="authSection" class="card auth-section">
-            <div class="header">
-                <h1>🚔 РП ПОРТАЛ НПУ</h1>
-                <p>Національна Поліція України</p>
-            </div>
 
-            <h2>Вхід до системи</h2>
+<div class="blur"></div>
+<div class="card" id="app"></div>
 
-            <div class="form-group">
-                <input id="username" placeholder="Ім'я користувача" type="text">
-            </div>
+<script>
+/* ===== STORAGE ===== */
+const get = k => JSON.parse(localStorage.getItem(k) || "[]");
+const set = (k,v) => localStorage.setItem(k, JSON.stringify(v));
 
-            <div class="form-group">
-                <input id="password" placeholder="Пароль" type="password">
-            </div>
+let current = JSON.parse(localStorage.getItem("currentUser"));
 
-            <div class="button-group">
-                <button onclick="register()">Реєстрація</button>
-                <button onclick="login()">Вхід</button>
-            </div>
-        </div>
+/* ===== REGISTER ===== */
+function register() {
+    let users = get("users");
 
-        <!-- ПАНЕЛЬ КОРИСТУВАЧА -->
-        <div id="panelSection" class="hidden">
-            <div class="card">
-                <div class="header">
-                    <h1>🚔 РП ПОРТАЛ НПУ</h1>
-                </div>
+    if(users.find(u => u.nick === regNick.value)) {
+        alert("Нік зайнятий");
+        return;
+    }
 
-                <div class="user-info">
-                    <p>👤 <strong id="userDisplay"></strong></p>
-                </div>
+    users.push({
+        nick: regNick.value,
+        pass: regPass.value,
+        role: "player"
+    });
 
-                <div class="panel-section">
-                    <h2>Інформація</h2>
-                    <div class="tabs-buttons">
-                        <button class="tab-button active" onclick="openTab('rules', this)">📕 Статут</button>
-                        <button class="tab-button" onclick="openTab('arrest', this)">🚔 Затримання</button>
-                        <button class="tab-button" onclick="openTab('code', this)">📘 Кодекс</button>
-                        <button class="tab-button" onclick="openTab('constitution', this)">⚖️ Конституція</button>
-                    </div>
+    set("users", users);
+    alert("Реєстрація OK");
+}
 
-                    <div id="rules" class="tab-content active">
-                        <h3>📕 СТАТУТ НПУ</h3>
-                        <p>Вставте текст статуту тут...</p>
-                    </div>
+/* ===== LOGIN ===== */
+function login() {
+    let users = get("users");
 
-                    <div id="arrest" class="tab-content">
-                        <h3>🚔 Інформація про затримання</h3>
-                        <p>Вставте інформацію про затримання тут...</p>
-                    </div>
+    let user = users.find(u =>
+        u.nick === logNick.value &&
+        u.pass === logPass.value
+    );
 
-                    <div id="code" class="tab-content">
-                        <h3>📘 Кодекс НПУ</h3>
-                        <p>Вставте текст кодексу тут...</p>
-                    </div>
+    if(!user) return alert("Невірні дані");
 
-                    <div id="constitution" class="tab-content">
-                        <h3>⚖️ Конституція НПУ</h3>
-                        <p>Вставте текст конституції тут...</p>
-                    </div>
-                </div>
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    location.reload();
+}
 
-                <button class="logout-btn" onclick="logout()">Вийти</button>
-            </div>
-        </div>
-    </div>
+/* ===== LOGOUT ===== */
+function logout() {
+    localStorage.removeItem("currentUser");
+    location.reload();
+}
 
-    <script>
-        let user = null;
+/* ===== FACTIONS ===== */
+function sendFaction() {
+    let data = get("factions");
 
-        function saveUsers() {
-            localStorage.setItem("users", JSON.stringify(users));
-        }
+    data.push({
+        nick: current.nick,
+        text: factionText.value,
+        status: "pending"
+    });
 
-        function loadUsers() {
-            return JSON.parse(localStorage.getItem("users") || "[]");
-        }
+    set("factions", data);
+    alert("Відправлено");
+}
 
-        let users = loadUsers();
+/* ===== LICENSES ===== */
+function sendLicense() {
+    let data = get("licenses");
 
-        // РЕЄСТРАЦІЯ
-        function register() {
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
+    data.push({
+        nick: current.nick,
+        type: licenseType.value,
+        status: "pending"
+    });
 
-            if (!username || !password) {
-                alert("Заповніть усі поля!");
-                return;
-            }
+    set("licenses", data);
+    alert("Відправлено");
+}
 
-            if (users.find(x => x.username === username)) {
-                alert("Користувач з таким ім'ям вже існує!");
-                return;
-            }
+/* ===== ADMIN ===== */
+function approve(type,i){
+    let d = get(type);
+    d[i].status="approved";
+    set(type,d);
+    render();
+}
 
-            users.push({ username, password });
-            saveUsers();
-            alert("✅ Реєстрація успішна! Тепер увійдіть.");
-            clearForm();
-        }
+function reject(type,i){
+    let d = get(type);
+    d[i].status="rejected";
+    set(type,d);
+    render();
+}
 
-        // ВХІД
-        function login() {
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
+/* ===== RENDER ===== */
+function render() {
+let app = document.getElementById("app");
 
-            if (!username || !password) {
-                alert("Заповніть усі поля!");
-                return;
-            }
+if(!current){
+app.innerHTML = 
+<h2>Львів RP Portal</h2>
 
-            const found = users.find(x => x.username === username && x.password === password);
+<h3>Реєстрація</h3>
+<input id="regNick" placeholder="Нік">
+<input id="regPass" type="password" placeholder="Пароль">
+<button onclick="register()">Зареєструватися</button>
 
-            if (!found) {
-                alert("❌ Невірне ім'я або пароль!");
-                return;
-            }
+<hr>
 
-            user = found;
-            showPanel();
-        }
+<h3>Вхід</h3>
+<input id="logNick" placeholder="Нік">
+<input id="logPass" type="password" placeholder="Пароль">
+<button onclick="login()">Увійти</button>
+;
+return;
+}
 
-        // ПОКАЗАТИ ПАНЕЛЬ
-        function showPanel() {
-            document.getElementById("authSection").classList.add("hidden");
-            document.getElementById("panelSection").classList.remove("hidden");
-            document.getElementById("userDisplay").textContent = user.username;
-        }
+/* ===== MAIN PANEL ===== */
+app.innerHTML = 
+<h2>Львів RP</h2>
+<p>Вітаємо, <b>${current.nick}</b> (${current.role})</p>
 
-        // ВИЙТИ
-        function logout() {
-            user = null;
-            document.getElementById("panelSection").classList.add("hidden");
-            document.getElementById("authSection").classList.remove("hidden");
-            clearForm();
-        }
+<button onclick="logout()">Вийти</button>
 
-        // ОЧИСТИТИ ФОРМУ
-        function clearForm() {
-            document.getElementById("username").value = "";
-            document.getElementById("password").value = "";
-        }
+<hr>
 
-        // ВІДКРИТИ ТАБ
-        function openTab(tabId, button) {
-            // Приховати всі таби
-            document.querySelectorAll(".tab-content").forEach(tab => {
-                tab.classList.remove("active");
-            });
+<h3>Фракції</h3>
+<textarea id="factionText" placeholder="Твоя анкета"></textarea>
+<button onclick="sendFaction()">Відправити</button>
 
-            // Прибрати активний клас з усіх кнопок
-            document.querySelectorAll(".tab-button").forEach(btn => {
-                btn.classList.remove("active");
-            });
+<h3>Ліцензії</h3>
+<select id="licenseType">
+<option>Car</option>
+<option>Gun</option>
+<option>Business</option>
+</select>
+<button onclick="sendLicense()">Відправити</button>
 
-            // Показати вибраний таб
-            document.getElementById(tabId).classList.add("active");
+<hr>
 
-            // Активувати кнопку
-            button.classList.add("active");
-        }
-    </script>
+${current.role === "admin" ? 
+<h3>ADMIN PANEL</h3>
+<div>
+${get("factions").map((x,i)=>
+<p>${x.nick}: ${x.text} (${x.status})
+<button onclick="approve('factions',${i})">✔</button>
+<button onclick="reject('factions',${i})">✖</button>
+</p>
+).join("")}
+    </div><div>
+${get("licenses").map((x,i)=>
+<p>${x.nick}: ${x.type} (${x.status})
+<button onclick="approve('licenses',${i})">✔</button>
+<button onclick="reject('licenses',${i})">✖</button>
+</p>
+).join("")}
+</div>
+ : ""}
+;
+}
+
+render();
+</script>
+
 </body>
 </html>
