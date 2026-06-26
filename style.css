@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* 🌫️ ФОН */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/background.jpg') center/cover no-repeat;
+    filter: blur(10px) brightness(0.4);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+/* 🧊 GLASS БЛОК */
+.glass {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 12vh;
+    padding: 40px;
+    text-align: center;
+
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(0, 255, 100, 0.2);
+    border-radius: 20px;
+
+    backdrop-filter: blur(15px);
+
+    box-shadow: 0 0 40px rgba(0, 255, 100, 0.1);
+
+    animation: fadeIn 1s ease;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #00ff88;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* 🔘 КНОПКИ */
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+
+    font-weight: 600;
+    color: white;
+
+    background: rgba(0, 255, 120, 0.15);
+    border: 1px solid rgba(0, 255, 120, 0.4);
+
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 255, 120, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 120, 0.3);
+}
+
+/* ✨ Анімація появи */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 АДАПТИВНІСТЬ */
+@media (max-width: 600px) {
+    .glass {
+        margin-top: 8vh;
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
