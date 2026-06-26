@@ -218,3 +218,54 @@ input:focus {
         font-size: 12px;
     }
 }
+.doc-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.doc {
+    max-width: 900px;
+    width: 100%;
+    padding: 30px;
+    text-align: left;
+    animation: fadeIn 0.8s ease;
+}
+
+.doc h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.doc-content p {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #d1ffe5;
+}
+
+.doc-content hr {
+    border: none;
+    border-top: 1px solid rgba(0,255,120,0.2);
+    margin: 15px 0;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    padding: 10px 15px;
+    border-radius: 10px;
+
+    background: rgba(0,255,120,0.15);
+    border: 1px solid rgba(0,255,120,0.3);
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+}
