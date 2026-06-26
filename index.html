@@ -1,223 +1,42 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<title>Львів RP Portal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РП ПОРТАЛ ДБР</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: url("https://images.unsplash.com/photo-1604079628040-94301bb21b91") no-repeat center/cover;
-    color: white;
-}
+    <link rel="stylesheet" href="style.css">
 
-.blur {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(15px);
-    background: rgba(0,255,120,0.12);
-}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap" rel="stylesheet">
 
-.card {
-    position: relative;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: rgba(0,0,0,0.75);
-    border-radius: 15px;
-}
-
-input, textarea, select {
-    width: 90%;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 10px;
-    border: none;
-}
-
-button {
-    padding: 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 10px;
-    background: #00ff88;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #00cc66;
-}
-
-hr { opacity: 0.3; }
-</style>
 </head>
-
 <body>
 
-<div class="blur"></div>
-<div class="card" id="app"></div>
+<div class="background"></div>
 
-<script>
-/* ===== STORAGE ===== */
-const get = k => JSON.parse(localStorage.getItem(k) || "[]");
-const set = (k,v) => localStorage.setItem(k, JSON.stringify(v));
+<div class="glass">
 
-let current = JSON.parse(localStorage.getItem("currentUser"));
+<h1>РП ПОРТАЛ ДБР</h1>
 
-/* ===== REGISTER ===== */
-function register() {
-    let users = get("users");
-
-    if(users.find(u => u.nick === regNick.value)) {
-        alert("Нік зайнятий");
-        return;
-    }
-
-    users.push({
-        nick: regNick.value,
-        pass: regPass.value,
-        role: "player"
-    });
-
-    set("users", users);
-    alert("Реєстрація OK");
-}
-
-/* ===== LOGIN ===== */
-function login() {
-    let users = get("users");
-
-    let user = users.find(u =>
-        u.nick === logNick.value &&
-        u.pass === logPass.value
-    );
-
-    if(!user) return alert("Невірні дані");
-
-    localStorage.setItem("currentUser", JSON.stringify(user));
-    location.reload();
-}
-
-/* ===== LOGOUT ===== */
-function logout() {
-    localStorage.removeItem("currentUser");
-    location.reload();
-}
-
-/* ===== FACTIONS ===== */
-function sendFaction() {
-    let data = get("factions");
-
-    data.push({
-        nick: current.nick,
-        text: factionText.value,
-        status: "pending"
-    });
-
-    set("factions", data);
-    alert("Відправлено");
-}
-
-/* ===== LICENSES ===== */
-function sendLicense() {
-    let data = get("licenses");
-
-    data.push({
-        nick: current.nick,
-        type: licenseType.value,
-        status: "pending"
-    });
-
-    set("licenses", data);
-    alert("Відправлено");
-}
-
-/* ===== ADMIN ===== */
-function approve(type,i){
-    let d = get(type);
-    d[i].status="approved";
-    set(type,d);
-    render();
-}
-
-function reject(type,i){
-    let d = get(type);
-    d[i].status="rejected";
-    set(type,d);
-    render();
-}
-
-/* ===== RENDER ===== */
-function render() {
-let app = document.getElementById("app");
-
-if(!current){
-app.innerHTML = 
-<h2>Львів RP Portal</h2>
-
-<h3>Реєстрація</h3>
-<input id="regNick" placeholder="Нік">
-<input id="regPass" type="password" placeholder="Пароль">
-<button onclick="register()">Зареєструватися</button>
-
-<hr>
-
-<h3>Вхід</h3>
-<input id="logNick" placeholder="Нік">
-<input id="logPass" type="password" placeholder="Пароль">
-<button onclick="login()">Увійти</button>
-;
-return;
-}
-
-/* ===== MAIN PANEL ===== */
-app.innerHTML = 
-<h2>Львів RP</h2>
-<p>Вітаємо, <b>${current.nick}</b> (${current.role})</p>
-
-<button onclick="logout()">Вийти</button>
-
-<hr>
-
-<h3>Фракції</h3>
-<textarea id="factionText" placeholder="Твоя анкета"></textarea>
-<button onclick="sendFaction()">Відправити</button>
-
-<h3>Ліцензії</h3>
-<select id="licenseType">
-<option>Car</option>
-<option>Gun</option>
-<option>Business</option>
-</select>
-<button onclick="sendLicense()">Відправити</button>
-
-<hr>
-
-${current.role === "admin" ? 
-<h3>ADMIN PANEL</h3>
-<div>
-${get("factions").map((x,i)=>
-<p>${x.nick}: ${x.text} (${x.status})
-<button onclick="approve('factions',${i})">✔</button>
-<button onclick="reject('factions',${i})">✖</button>
+<p class="subtitle">
+Внутрішній портал Державного Бюро Розслідувань
 </p>
-).join("")}
-    </div><div>
-${get("licenses").map((x,i)=>
-<p>${x.nick}: ${x.type} (${x.status})
-<button onclick="approve('licenses',${i})">✔</button>
-<button onclick="reject('licenses',${i})">✖</button>
-</p>
-).join("")}
+
+<div class="buttons">
+
+<button onclick="window.location='register.html'">
+Реєстрація
+</button>
+
+<button onclick="window.location='login.html'">
+Вхід
+</button>
+
 </div>
- : ""}
-;
-}
 
-render();
-</script>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
