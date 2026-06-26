@@ -69,3 +69,7 @@ function logout() {
     localStorage.removeItem("logged");
     window.location = "login.html";
 }
+// 📄 Перехід між сторінками
+function openPage(page) {
+    window.location = page;
+}
