@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал ДБР</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="layout">
+
+<!-- 📌 БОКОВЕ МЕНЮ -->
+<div class="sidebar">
+
+<h2>ДБР ПОРТАЛ</h2>
+
+<button onclick="openPage('statute.html')">📜 Статут</button>
+<button onclick="openPage('code.html')">📘 Кодекс</button>
+<button onclick="openPage('rules.html')">📖 Правила</button>
+<button onclick="openPage('constitution.html')">⚖ Конституція</button>
+
+<hr>
+
+<button onclick="openPage('profile.html')">👤 Профіль</button>
+<button onclick="logout()">🚪 Вийти</button>
+
+</div>
+
+<!-- 📌 ГОЛОВНА ОБЛАСТЬ -->
+<div class="content">
+
+<div class="glass">
+
+<h1>Вітаємо</h1>
+
+<p>Ви увійшли в РП ПОРТАЛ ДБР</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
