@@ -36,20 +36,19 @@ function register() {
 function login() {
     let username = document.getElementById("loginUser").value;
     let password = document.getElementById("loginPass").value;
-    let msg = document.getElementById("msg");
 
     let user = JSON.parse(localStorage.getItem("user"));
 
     if (!user) {
-        msg.innerText = "Користувача не знайдено";
+        alert("Спочатку зареєструйся");
         return;
     }
 
     if (username === user.username && password === user.password) {
         localStorage.setItem("logged", "true");
-        window.location = "profile.html";
+        window.location.href = "dashboard.html";
     } else {
-        msg.innerText = "Невірні дані";
+        alert("Невірний логін або пароль");
     }
 }
 // 📄 Завантаження профілю
