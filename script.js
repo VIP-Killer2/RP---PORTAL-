@@ -52,3 +52,20 @@ function login() {
         msg.innerText = "Невірні дані";
     }
 }
+// 📄 Завантаження профілю
+window.onload = function () {
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    if (user && document.getElementById("name")) {
+        document.getElementById("name").innerText = user.username;
+        document.getElementById("rank").innerText = user.rank;
+        document.getElementById("car").innerText = user.car;
+    }
+};
+
+
+// 🚪 Вихід
+function logout() {
+    localStorage.removeItem("logged");
+    window.location = "login.html";
+}
